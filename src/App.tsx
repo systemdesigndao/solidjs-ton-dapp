@@ -1,5 +1,6 @@
 import { onMount } from 'solid-js'
-import {TonConnectUI} from '@tonconnect/ui'
+import { TonConnectUI } from '@tonconnect/ui'
+import './App.css'
 
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
