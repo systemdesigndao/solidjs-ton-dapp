@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.8.3
     version: 0.8.3(solid-js@1.7.8)
   '@tonconnect/ui':
-    specifier: 2.0.0-beta.1
-    version: 2.0.0-beta.1
+    specifier: 2.0.0-beta.2
+    version: 2.0.0-beta.2
   solid-js:
     specifier: ^1.7.8
     version: 1.7.8
@@ -623,8 +623,8 @@ packages:
       - encoding
     dev: false
 
-  /@tonconnect/ui@2.0.0-beta.1:
-    resolution: {integrity: sha512-1lUt6+rFzmOozW/sJkNhlD+k5VHbncAdD0V5wr8cUteTHMwU7TsO1ir11bDGmEIs9mAOSszHj1JI+KxcOZa/2g==}
+  /@tonconnect/ui@2.0.0-beta.2:
+    resolution: {integrity: sha512-oVaJ/o8+inYNDA4Jq1WbZm8mdexyW+FjSBnYKQhqneH883HeLpiIA63dmbIWMiHAbkY8S6uRO9ffKPUjEWzGjw==}
     dependencies:
       '@tonconnect/sdk': 3.0.0-beta.1
       classnames: 2.3.2
