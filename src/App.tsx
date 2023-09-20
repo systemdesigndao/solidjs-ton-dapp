@@ -19,6 +19,8 @@ function App() {
         buttonRootId: 'ton-connect2-container'
       });
       
+      await tonConnectUI.connector.restoreConnection();
+
       // enable ui loader
       tonConnectUI.setConnectRequestParameters({ state: 'loading' });
   
@@ -84,20 +86,6 @@ function App() {
           }
         }
       );
-        
-      tonConnectUI.connectionRestored.then(restored => {
-        if (restored) {
-            console.log(
-                'Connection restored. Wallet:',
-                JSON.stringify({
-                  ...tonConnectUI.wallet,
-                  ...tonConnectUI.walletInfo
-                })
-            );
-        } else {
-            console.log('Connection was not restored.');
-        }
-      });
 
       return unsubscribe;
     }
