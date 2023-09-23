@@ -1,6 +1,6 @@
 import { onMount } from 'solid-js'
 import { TonConnectUI } from '@tonconnect/ui'
-import './App.css'
+import './components/Increment';
 
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
@@ -94,9 +94,12 @@ function App() {
   });
   
   return (
-    <>
-      <div id="ton-connect2-container"></div>
-    </>
+    <div class='h-screen p-4'>
+      <div class='w-full flex justify-center items-center'>
+        <div id="ton-connect2-container"></div>
+      </div>
+      <increment-web-component class='flex flex-col items-center mt-2' />
+    </div>
   )
 }
 
