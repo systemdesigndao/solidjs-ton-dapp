@@ -16,9 +16,10 @@ export function TGSPlayer(props: any) {
     animation = lottie.loadAnimation({
       container: container,
       renderer: 'svg',
-      loop: true,
+      loop: false,
       autoplay: false,
-      animationData: lottieJson
+      animationData: lottieJson,
+      initialSegment: [0, 180]
     });
 
     onCleanup(() => {
@@ -26,12 +27,33 @@ export function TGSPlayer(props: any) {
     });
   });
 
+  const handleMouseEnter = () => {
+    if (animation) {
+      animation.setDirection(1);
+      animation.setSpeed(1.5);
+      animation.play();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (animation) {
+      animation.setDirection(-1);
+      animation.setSpeed(1);
+      animation.play();
+      animation.addEventListener('complete', () => {
+        animation.setDirection(1);
+        animation.setSpeed(1);
+        animation.goToAndStop(0, true);
+      });
+    }
+  };
+
   return (
     <div 
       style={{ height: '40px', width: '40px' }} 
       ref={container}
-      onMouseEnter={() => animation && animation.play()}
-      onMouseLeave={() => animation && animation.stop()}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     ></div>
   );
 }
