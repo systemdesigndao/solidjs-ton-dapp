@@ -1,6 +1,7 @@
-import { onMount } from 'solid-js'
+import { createSignal, onMount } from 'solid-js'
 import { TonConnectUI } from '@tonconnect/ui'
 import './App.css'
+import { TGSPlayer } from './components/TGSPlayer';
 
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
@@ -12,14 +13,18 @@ async function postData(url = "", data = {}) {
 }
 
 function App() {
+  const [connectedWallet, setConnectedWallet] = createSignal<boolean>(localStorage.getItem('dAppToken') ? true : false);
+  const tonConnectUI = new TonConnectUI({
+    manifestUrl: 'https://about.systemdesigndao.xyz/ton-connect.manifest.json',
+    buttonRootId: null,
+  });
+
   onMount(() => {
     const run = async () => {
-      const tonConnectUI = new TonConnectUI({
-        manifestUrl: 'https://about.systemdesigndao.xyz/ton-connect.manifest.json',
-        buttonRootId: 'ton-connect2-container'
-      });
-      
-      await tonConnectUI.connector.restoreConnection();
+      tonConnectUI.uiOptions = {
+        ...tonConnectUI.uiOptions,
+        buttonRootId: 'ton-connect2-container',
+      }
 
       // enable ui loader
       tonConnectUI.setConnectRequestParameters({ state: 'loading' });
@@ -78,9 +83,15 @@ function App() {
                 tonConnectUI.setConnectRequestParameters({
                   state: "ready",
                   value: { tonProof: payload }
-              });
+                });
+
+                setConnectedWallet(true);
+                localStorage.setItem('dAppToken', `Bearer ${token}`);
               } catch (err) {
                 console.error(err);
+                
+                setConnectedWallet(false);
+                localStorage.removeItem('dAppToken');
               }
             }
           }
@@ -96,6 +107,10 @@ function App() {
   return (
     <>
       <div id="ton-connect2-container"></div>
+      {connectedWallet() && <div style={{ 'display': 'flex', 'align-items': 'center', "flex-direction": "column" }}>
+        <pre>Connected: {JSON.stringify(connectedWallet())}</pre>
+        <TGSPlayer tgsPath="/lottie/Fries.tgs" />
+      </div>}
     </>
   )
 }
