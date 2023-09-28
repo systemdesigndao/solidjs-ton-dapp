@@ -1,10 +1,16 @@
-import { onCleanup, onMount } from 'solid-js';
+import { onCleanup, onMount, createSignal } from 'solid-js';
 import lottie from 'lottie-web';
 import pako from 'pako';
 
-export function TGSPlayer(props: any) {
+type ITGSPlayer = {
+  tgsPath: string;
+}
+
+export function TGSPlayer(props: ITGSPlayer) {
   let container: any;
   let animation: any;
+
+  const [isHovered, setIsHovered] = createSignal(false);
 
   onMount(async () => {
     const response = await fetch(props.tgsPath);
@@ -22,35 +28,42 @@ export function TGSPlayer(props: any) {
       initialSegment: [0, 180]
     });
 
+    animation.addEventListener('complete', () => {
+      if (isHovered()) {
+        animation.playSegments([0, 180], true);
+      } else {
+        animation.setDirection(1);
+        animation.setSpeed(1);
+        animation.goToAndStop(0, true);
+      }
+    });
+
     onCleanup(() => {
       animation.destroy();
     });
   });
 
   const handleMouseEnter = () => {
+    setIsHovered(true);
     if (animation) {
       animation.setDirection(1);
-      animation.setSpeed(1.5);
+      animation.setSpeed(1);
       animation.play();
     }
   };
 
   const handleMouseLeave = () => {
+    setIsHovered(false);
     if (animation) {
       animation.setDirection(-1);
       animation.setSpeed(1);
       animation.play();
-      animation.addEventListener('complete', () => {
-        animation.setDirection(1);
-        animation.setSpeed(1);
-        animation.goToAndStop(0, true);
-      });
     }
   };
 
   return (
-    <div 
-      style={{ height: '40px', width: '40px' }} 
+    <div
+      style={{ height: '40px', width: '40px' }}
       ref={container}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
