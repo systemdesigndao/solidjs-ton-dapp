@@ -109,7 +109,7 @@ function App() {
       <div id="ton-connect2-container"></div>
       {connectedWallet() && <div style={{ 'display': 'flex', 'align-items': 'center', "flex-direction": "column" }}>
         <pre>Connected: {JSON.stringify(connectedWallet())}</pre>
-        <TGSPlayer tgsPath="/lottie/Fries.tgs" />
+        <TGSPlayer tgsPath="/lottie/Diamond.tgs" />
       </div>}
     </>
   )
