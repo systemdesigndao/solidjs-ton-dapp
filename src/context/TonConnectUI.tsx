@@ -134,3 +134,5 @@ export function useTonConnectedWallet() {
 
     return { connectedWallet };
 }
+
+// (react realisation)[https://github.com/ton-connect/sdk/blob/main/packages/ui-react/src/components/TonConnectUIProvider.tsx]
