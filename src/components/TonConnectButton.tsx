@@ -22,3 +22,5 @@ const TonConnectButton = ({ className, style }: any) => {
 };
 
 export default TonConnectButton;
+
+// (react realisation)[https://github.com/ton-connect/sdk/blob/main/packages/ui-react/src/components/TonConnectButton.tsx]
