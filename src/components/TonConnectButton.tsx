@@ -1,0 +1,24 @@
+import { onMount } from 'solid-js';
+import { useTonConnectUI } from '../context/TonConnectUI';
+
+
+const buttonRootId = 'ton-connect2-container';
+
+const TonConnectButton = ({ className, style }: any) => {
+    const [_, setOptions] = useTonConnectUI();
+
+    onMount(() => {
+        setOptions({ buttonRootId });
+        return () => setOptions({ buttonRootId: null });
+    });
+
+    return (
+        <div
+            id={buttonRootId}
+            class={className}
+            style={{ width: 'fit-content', ...style }}
+        ></div>
+    );
+};
+
+export default TonConnectButton;
